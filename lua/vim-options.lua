@@ -10,6 +10,11 @@ vim.opt.termguicolors = true
 
 vim.opt.scrolloff = 8
 
+vim.keymap.set('n', '<leader>y', "\"+y")
+vim.keymap.set('v', '<leader>y', "\"+y")
+vim.keymap.set('n', '<leader>Y', "\"+Y")
+
+
 vim.keymap.set('n', "n", "nzzzv")
 vim.keymap.set('n', "N", "Nzzzv")
 
@@ -17,9 +22,6 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.showmode = false
 
-vim.schedule(function()
-	vim.opt.clipboard = "unnamedplus"
-end)
 vim.opt.undofile = true
 
 vim.opt.ignorecase = true
