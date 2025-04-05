@@ -6,6 +6,13 @@ vim.cmd("set shiftwidth=2")
 vim.g.mapleader = " "
 vim.g.have_nerd_font = true
 
+vim.opt.termguicolors = true
+
+vim.opt.scrolloff = 8
+
+vim.keymap.set('n', "n", "nzzzv")
+vim.keymap.set('n', "N", "Nzzzv")
+
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.showmode = false
