@@ -1,46 +1,73 @@
 return {
-	{
-		"williamboman/mason.nvim",
-		config = function()
-			require("mason").setup()
-		end,
-	},
-	{
-		"williamboman/mason-lspconfig.nvim",
-		config = function()
-			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "pyright", "gopls" },
-			})
-		end,
-	},
-	{
-		"neovim/nvim-lspconfig",
-		config = function()
-			local lspconfig = require("lspconfig")
-			lspconfig.lua_ls.setup({})
-			lspconfig.pyright.setup({})
-			lspconfig.gopls.setup({})
-			-- Override the floating preview to limit max width
-			local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+  {
+    "williamboman/mason.nvim",
+    config = function()
+      require("mason").setup()
+    end,
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    config = function()
+      require("mason-lspconfig").setup({
+        ensure_installed = { "lua_ls", "pyright", "gopls" },
+      })
+    end,
+  },
+  {
+    "neovim/nvim-lspconfig",
+    config = function()
+      local lspconfig = require("lspconfig")
+      lspconfig.lua_ls.setup({})
+      lspconfig.pyright.setup({})
+      lspconfig.gopls.setup({})
+      -- Patch open_floating_preview to wrap by word and limit max width
+      local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
 
-			function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-				opts = opts or {}
-				opts.border = opts.border or "rounded"
-				opts.max_width = 80 -- ✅ Set your desired max width here
-				return orig_util_open_floating_preview(contents, syntax, opts, ...)
-			end
+      function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+        opts = opts or {}
+        opts.border = opts.border or "rounded"
+        opts.max_width = 80 -- Set your desired max width here
 
-			-- Keybinding for hovering (should work as expected)
-			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
-			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
-			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
-			vim.diagnostic.config({
-				signs = true,
-				underline = true,
-				update_in_insert = true,
-				virtual_text = true,
-				severity_sort = true,
-			})
-		end,
-	},
+        -- Wrap text by word, respecting the max_width
+        local wrapped = {}
+        local wrap_limit = opts.max_width or 80
+
+        for _, line in ipairs(contents) do
+          local current_line = ""
+          for word in line:gmatch("%S+") do
+            -- If the current line plus the next word exceeds the max_width, wrap it
+            if #current_line + #word + 1 > wrap_limit then
+              table.insert(wrapped, current_line)
+              current_line = word
+            else
+              -- If it fits, add the word to the current line
+              if #current_line > 0 then
+                current_line = current_line .. " " .. word
+              else
+                current_line = word
+              end
+            end
+          end
+          -- Insert the final line after the loop
+          table.insert(wrapped, current_line)
+        end
+
+        -- Show the hover window with the new wrapped lines
+        return orig_util_open_floating_preview(wrapped, syntax, opts, ...)
+      end
+
+      -- Keybinding for hovering (should work as expected)
+      vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
+      vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
+      vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
+      vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
+      vim.diagnostic.config({
+        signs = true,
+        underline = true,
+        update_in_insert = true,
+        virtual_text = true,
+        severity_sort = true,
+      })
+    end,
+  },
 }
