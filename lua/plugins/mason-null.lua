@@ -6,9 +6,9 @@ return {
       "nvimtools/none-ls.nvim",
     },
     config = function()
-      require("mason").setup() 
+      require("mason").setup()
       require("mason-null-ls").setup({
-    ensure_installed = { "stylua", "black", "isort", "prettier", "ast_grep" }
+    ensure_installed = { "stylua", "black", "isort", "prettier", "gofumpt" }
 })
     end,
 }
