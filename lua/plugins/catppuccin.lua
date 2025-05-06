@@ -5,5 +5,8 @@ return {
   lazy = false,
   config = function ()
     vim.cmd.colorscheme "catppuccin"
+    require("catppuccin").setup({
+      transparent_background = true
+    })
   end
 }
