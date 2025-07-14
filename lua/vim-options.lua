@@ -61,3 +61,10 @@ vim.keymap.set("n", "<leader>wh", ":sp<CR>", {desc = "Horisontal split"})
 vim.keymap.set("n", "<leader>wv", ":vsp<CR>", {desc = "Vertical split"})
 vim.opt.wrap = false
 vim.opt.swapfile = false
+
+vim.diagnostic.config({
+  virtual_text = false,
+  virtual_lines = {
+    only_current_line = false,
+  },
+})
