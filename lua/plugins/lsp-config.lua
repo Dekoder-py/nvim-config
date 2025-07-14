@@ -17,30 +17,74 @@ return {
     "neovim/nvim-lspconfig",
     config = function()
       local lspconfig = require("lspconfig")
-      lspconfig.lua_ls.setup({})
-      lspconfig.pyright.setup({})
-      lspconfig.ast_grep.setup({})
-      lspconfig.eslint.setup({})
-      lspconfig.html.setup({})
-      lspconfig.cssls.setup({})
-      lspconfig.bashls.setup({})
-      vim.lsp.config('lua_ls', {})
-      vim.lsp.config('pyright', {})
-      vim.lsp.config('bashls', {})
-      vim.lsp.enable('lua_ls')
-      vim.lsp.enable('pyright')
-      vim.lsp.enable('bashls')
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      
+      -- Setup LSP servers with consistent configuration
+      lspconfig.lua_ls.setup({
+        capabilities = capabilities,
+        settings = {
+          Lua = {
+            runtime = {
+              version = 'LuaJIT'
+            },
+            diagnostics = {
+              globals = {'vim'},
+            },
+            workspace = {
+              library = vim.api.nvim_get_runtime_file("", true),
+            },
+            telemetry = {
+              enable = false,
+            },
+          },
+        },
+      })
+      
+      lspconfig.pyright.setup({ 
+        capabilities = capabilities,
+        settings = {
+          python = {
+            analysis = {
+              autoSearchPaths = true,
+              diagnosticMode = "workspace",
+              useLibraryCodeForTypes = true
+            }
+          }
+        }
+      })
+      
+      lspconfig.bashls.setup({ 
+        capabilities = capabilities 
+      })
+      
+      -- Load hover fix
       require("hover-fix")
-      vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
+      
+      -- Key mappings
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
+      vim.keymap.set("n", "gr", vim.lsp.buf.references, {})
+      vim.keymap.set("n", "gi", vim.lsp.buf.implementation, {})
+      vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})
       vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
+      vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, {})
+      vim.keymap.set("n", "]d", vim.diagnostic.goto_next, {})
+      
+      -- Diagnostic configuration
       vim.diagnostic.config({
         signs = true,
         underline = true,
-        update_in_insert = true,
-        virtual_text = true,
+        update_in_insert = false,
+        virtual_text = {
+          spacing = 4,
+          source = "if_many",
+          prefix = "●",
+        },
         severity_sort = true,
+        float = {
+          source = "always",
+          border = "rounded",
+        },
       })
     end,
   },
