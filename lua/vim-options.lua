@@ -20,7 +20,7 @@ vim.keymap.set("n", "N", "Nzzzv")
 
 vim.keymap.set(
 	"n",
-	"<leader>s",
+	"<leader>S",
 	[[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
 	{ desc = "Replace all occurences of word" }
 )
