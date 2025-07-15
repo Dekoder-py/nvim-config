@@ -17,11 +17,9 @@ return {
     "neovim/nvim-lspconfig",
     config = function()
       local lspconfig = require("lspconfig")
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
       
       -- Setup LSP servers with consistent configuration
       lspconfig.lua_ls.setup({
-        capabilities = capabilities,
         settings = {
           Lua = {
             runtime = {
@@ -41,7 +39,6 @@ return {
       })
       
       lspconfig.pyright.setup({ 
-        capabilities = capabilities,
         settings = {
           python = {
             analysis = {
@@ -54,12 +51,9 @@ return {
       })
       
       lspconfig.bashls.setup({ 
-        capabilities = capabilities 
       })
-      
       -- Load hover fix
       require("hover-fix")
-      
       -- Key mappings
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
@@ -69,8 +63,6 @@ return {
       vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
       vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, {})
       vim.keymap.set("n", "]d", vim.diagnostic.goto_next, {})
-      
-      -- Diagnostic configuration
     end,
   },
 }
