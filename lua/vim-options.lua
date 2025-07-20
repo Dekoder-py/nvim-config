@@ -6,6 +6,12 @@ vim.cmd("set shiftwidth=2")
 vim.g.mapleader = " "
 vim.g.have_nerd_font = true
 
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+
+
 vim.opt.termguicolors = true
 
 vim.opt.scrolloff = 8
