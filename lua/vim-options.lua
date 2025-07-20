@@ -25,6 +25,8 @@ vim.keymap.set(
 	{ desc = "Replace all occurences of word" }
 )
 
+vim.keymap.set("n", "<leader>bn", ":bn<CR>")
+
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.showmode = false
