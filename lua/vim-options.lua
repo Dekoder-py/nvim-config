@@ -3,6 +3,13 @@ vim.cmd("set tabstop=2")
 vim.cmd("set softtabstop=2")
 vim.cmd("set shiftwidth=2")
 
+
+vim.api.nvim_set_keymap("i", "jj", "<Esc>", { noremap = false })
+vim.api.nvim_set_keymap("i", "jk", "<Esc>", { noremap = false })
+
+vim.api.nvim_set_keymap("n", "ss", ":wq<CR>", { noremap = false })
+vim.api.nvim_set_keymap("n", "sq", ":q!<CR>", { noremap = false })
+
 vim.g.mapleader = " "
 vim.g.have_nerd_font = true
 
