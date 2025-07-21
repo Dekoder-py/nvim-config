@@ -8,7 +8,7 @@ return {
     config = function()
       require("mason").setup()
       require("mason-null-ls").setup({
-    ensure_installed = { "stylua", "black", "isort", "prettier", "shfmt" }
+    ensure_installed = { "stylua", "black", "isort", "prettier", "shfmt","gofumpt" }
 })
     end,
 }

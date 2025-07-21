@@ -9,7 +9,7 @@ return {
     "williamboman/mason-lspconfig.nvim",
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "pyright",  "bashls" },
+        ensure_installed = { "lua_ls", "pyright", "bashls", "gopls" },
       })
     end,
   },
@@ -17,16 +17,16 @@ return {
     "neovim/nvim-lspconfig",
     config = function()
       local lspconfig = require("lspconfig")
-      
+
       -- Setup LSP servers with consistent configuration
       lspconfig.lua_ls.setup({
         settings = {
           Lua = {
             runtime = {
-              version = 'LuaJIT'
+              version = "LuaJIT",
             },
             diagnostics = {
-              globals = {'vim'},
+              globals = { "vim" },
             },
             workspace = {
               library = vim.api.nvim_get_runtime_file("", true),
@@ -37,21 +37,21 @@ return {
           },
         },
       })
-      
-      lspconfig.pyright.setup({ 
+
+      lspconfig.pyright.setup({
         settings = {
           python = {
             analysis = {
               autoSearchPaths = true,
               diagnosticMode = "workspace",
-              useLibraryCodeForTypes = true
-            }
-          }
-        }
+              useLibraryCodeForTypes = true,
+            },
+          },
+        },
       })
-      
-      lspconfig.bashls.setup({ 
-      })
+
+      lspconfig.bashls.setup({})
+      lspconfig.gopls.setup({})
       -- Load hover fix
       require("hover-fix")
       -- Key mappings
