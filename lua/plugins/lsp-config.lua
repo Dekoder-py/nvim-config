@@ -53,7 +53,7 @@ return {
       lspconfig.bashls.setup({})
       lspconfig.gopls.setup({})
       -- Load hover fix
-      require("hover-fix")
+      require("config.hover-fix")
       -- Key mappings
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
