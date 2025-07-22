@@ -2,9 +2,6 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
--- file explorer
-vim.keymap.set("n", "<leader>e", ":e .<CR>")
-
 -- tab settings
 vim.cmd("set expandtab")
 vim.cmd("set tabstop=2")
