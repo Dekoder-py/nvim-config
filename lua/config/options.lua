@@ -2,6 +2,9 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+-- no hidden
+vim.cmd("set nohidden")
+
 -- tab settings
 vim.cmd("set expandtab")
 vim.cmd("set tabstop=2")
