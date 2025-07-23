@@ -9,4 +9,7 @@ return {
   config = function()
     require("oil").setup()
   end,
+  keys = {
+    {"<leader>e", "<cmd>Oil .<cr>", desc = "Open Oil"}
+  },
 }
