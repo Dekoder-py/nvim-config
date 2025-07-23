@@ -5,6 +5,9 @@ vim.g.maplocalleader = "\\"
 -- no hidden
 vim.cmd("set nohidden")
 
+-- tmux-sessionizer
+vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+
 -- tab settings
 vim.cmd("set expandtab")
 vim.cmd("set tabstop=2")
