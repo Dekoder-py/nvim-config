@@ -23,12 +23,6 @@ return {
       vim.keymap.set("n", "gi", vim.lsp.buf.implementation, {})
       vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})
       vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
-      vim.diagnostic.config({
-        virtual_text = false,
-        virtual_lines = {
-          only_current_line = true, -- only show virtual lines on the current line
-        },
-      })
     end,
   },
 }
