@@ -9,7 +9,7 @@ return {
     "williamboman/mason-lspconfig.nvim",
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "pyright", "bashls", "gopls", "jdtls"},
+        ensure_installed = { "lua_ls", "pyright", "bashls", "gopls", "jdtls", "ts_ls"},
       })
     end,
   },
@@ -53,6 +53,7 @@ return {
       lspconfig.bashls.setup({})
       lspconfig.gopls.setup({})
       lspconfig.jdtls.setup({})
+      lspconfig.ts_ls.setup({})
      -- Key mappings
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
