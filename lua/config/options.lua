@@ -64,11 +64,11 @@ vim.keymap.set("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
 
 -- highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
-  desc = "Highlight when yanking text",
-  group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
+	desc = "Highlight when yanking text",
+	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
+	callback = function()
+		vim.highlight.on_yank()
+	end,
 })
 
 -- turn off wrapping
@@ -76,3 +76,6 @@ vim.opt.wrap = false
 
 -- turn off swapfile
 vim.opt.swapfile = false
+
+-- obsidian
+vim.opt.conceallevel = 2
