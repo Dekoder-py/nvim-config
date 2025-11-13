@@ -4,13 +4,22 @@ return {
 	ft = "markdown",
 	---@module 'obsidian'
 	---@type obsidian.config
-	opts = {
-		workspaces = {
-			{
-				name = "Second Brain",
-				path = "~/Second Brain/",
+	opts = {},
+	config = function()
+		require("obsidian").setup({
+			workspaces = {
+				{
+					name = "Core",
+					path = "~/vaults/Core/",
+				},
 			},
-		},
-	},
-	ui = { enable = true },
+			templates = {
+				subdir = "templates",
+				date_format = "%d-%m-%Y",
+				time_format = "%H:%M:%S",
+			},
+			ui = { enable = true },
+      disable_frontmatter = true,
+		})
+	end,
 }
