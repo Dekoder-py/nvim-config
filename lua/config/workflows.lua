@@ -26,7 +26,7 @@
 vim.keymap.set("n", "<leader>oo", ":cd /Users/kyleb/vaults/Core/<cr>")
 --
 -- convert note to template and remove leading white space
-vim.keymap.set("n", "<leader>on", ":ObsidianTemplate note<cr>")
+vim.keymap.set("n", "<leader>on", ":Obsidian template note<cr>")
 --
 -- search for files in full vault
 vim.keymap.set("n", "<leader>os", ":Telescope find_files search_dirs={\"/Users/kyleb/vaults/Core/\"}<cr>")
