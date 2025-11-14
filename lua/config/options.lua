@@ -79,3 +79,5 @@ vim.opt.swapfile = false
 
 -- obsidian
 vim.opt.conceallevel = 2
+
+vim.opt.winborder = "rounded"
