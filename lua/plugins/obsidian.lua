@@ -19,7 +19,9 @@ return {
 				time_format = "%H:%M:%S",
 			},
 			ui = { enable = true },
-      disable_frontmatter = true,
+			frontmatter = {
+				enabled = false,
+			},
 		})
 	end,
 }
