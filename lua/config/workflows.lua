@@ -23,17 +23,17 @@
 -- >>> og # organize saved notes from zettelkasten into notes/[tag] folders
 --
 -- navigate to vault
-vim.keymap.set("n", "<leader>oo", ":cd /Users/kyleb/vaults/Core/<cr>")
+vim.keymap.set("n", "<leader>oo", ":cd /Users/kyle/vaults/Core/<cr>")
 --
 -- convert note to template and remove leading white space
 vim.keymap.set("n", "<leader>on", ":Obsidian template note<cr>")
 --
 -- search for files in full vault
-vim.keymap.set("n", "<leader>os", ":Telescope find_files search_dirs={\"/Users/kyleb/vaults/Core/\"}<cr>")
-vim.keymap.set("n", "<leader>oz", ":Telescope live_grep search_dirs={\"/Users/kyleb/vaults/Core/\"}<cr>")
+vim.keymap.set("n", "<leader>os", ":Telescope find_files search_dirs={\"/Users/kyle/vaults/Core/\"}<cr>")
+vim.keymap.set("n", "<leader>oz", ":Telescope live_grep search_dirs={\"/Users/kyle/vaults/Core/\"}<cr>")
 --
 -- for review workflow
 -- move file in current buffer to zettelkasten folder
-vim.keymap.set("n", "<leader>ok", ":!mv '%:p' /Users/kyleb/vaults/Core/zettelkasten<cr>:bd<cr>")
+vim.keymap.set("n", "<leader>ok", ":!mv '%:p' /Users/kyle/vaults/Core/zettelkasten<cr>:bd<cr>")
 -- delete file in current buffer
 vim.keymap.set("n", "<leader>odd", ":!rm '%:p'<cr>:bd<cr>")
