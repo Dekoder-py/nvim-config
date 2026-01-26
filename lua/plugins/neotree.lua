@@ -8,6 +8,6 @@ return {
 	},
 	lazy = false,
 	keys = {
-		{ "<leader>t", "<cmd>Neotree toggle<cr>", desc = "Open Neotree" },
+		{ "<leader>e", "<cmd>Neotree toggle<cr>", desc = "Open Neotree" },
 	},
 }
