@@ -15,7 +15,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("config.init")
+require("config")
 
 -- Setup lazy.nvim
 require("lazy").setup({
