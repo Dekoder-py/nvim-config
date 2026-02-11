@@ -5,6 +5,9 @@ vim.g.maplocalleader = "\\"
 -- tmux-sessionizer
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 
+-- make
+vim.keymap.set("n", "<leader>r", "<cmd>make<cr>")
+
 -- yank to sys. clipboard
 vim.keymap.set("n", "<leader>y", '"+y')
 vim.keymap.set("v", "<leader>y", '"+y')
