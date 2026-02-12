@@ -1,25 +1,36 @@
+local key = vim.keymap
+
 -- leader key
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 -- tmux-sessionizer
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+key.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 
 -- make
-vim.keymap.set("n", "<leader>r", "<cmd>make<cr>")
+key.set("n", "<leader>r", "<cmd>make<cr>")
+
+-- explorer
+key.set("n", "<leader>e", "<cmd>Ex<cr>")
 
 -- yank to sys. clipboard
-vim.keymap.set("n", "<leader>y", '"+y')
-vim.keymap.set("v", "<leader>y", '"+y')
-vim.keymap.set("n", "<leader>Y", '"+Y')
-vim.keymap.set("n", "<leader>p", '"+p')
+key.set("n", "<leader>y", '"+y')
+key.set("v", "<leader>y", '"+y')
+key.set("n", "<leader>Y", '"+Y')
+key.set("n", "<leader>p", '"+p')
 
 -- search keeps result centered
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
+key.set("n", "n", "nzzzv")
+key.set("n", "N", "Nzzzv")
 
 -- center bottom line
-vim.keymap.set("n", "G", "Gzz")
+key.set("n", "G", "Gzz")
 
 -- clear highlight
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+key.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+
+-- PLUGINS
+
+-- Flash.nvim
+key.set({ "n", "x", "o" }, "z", "<cmd>lua require(\"flash\").jump()<cr>")
+key.set({ "n", "x", "o" }, "Z", "<cmd>lua require(\"flash\").treesitter()<cr>")
