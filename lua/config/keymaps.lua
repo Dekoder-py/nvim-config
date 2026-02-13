@@ -13,6 +13,11 @@ key.set("n", "<leader>r", "<cmd>make<cr>")
 -- explorer
 key.set("n", "<leader>e", "<cmd>Ex<cr>")
 
+-- buffers
+key.set("n", "<leader>bd", "<cmd>bdelete<cr>")
+key.set("n", "<leader>bn", "<cmd>bnext<cr>")
+key.set("n", "<leader>bp", "<cmd>bprevious<cr>")
+
 -- yank to sys. clipboard
 key.set("n", "<leader>y", '"+y')
 key.set("v", "<leader>y", '"+y')
