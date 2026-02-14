@@ -8,7 +8,8 @@ vim.g.maplocalleader = "\\"
 key.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 
 -- make
-key.set("n", "<leader>r", "<cmd>make<cr>")
+key.set("n", "<leader>mb", "<cmd>make<cr>")
+key.set("n", "<leader>mr", "<cmd>make run<cr>")
 
 -- explorer
 key.set("n", "<leader>e", "<cmd>Ex<cr>")
