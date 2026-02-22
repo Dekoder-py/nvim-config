@@ -1,7 +1,12 @@
-return {
-	"dekoder-py/build.nvim",
-	event = { "DirChanged", "BufRead" },
-	config = function()
-		require("build").setup({})
-	end,
-}
+return {}
+-- return {
+-- 	"dekoder-py/build.nvim",
+-- 	event = { "DirChanged", "BufRead" },
+-- 	config = function()
+-- 		require("build").setup({
+--       compilers = {
+--         npm = false
+--       }
+--     })
+-- 	end,
+-- }
