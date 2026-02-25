@@ -1,7 +1,7 @@
 {
+  "alpha-nvim": { "branch": "main", "commit": "a9d8fb72213c8b461e791409e7feabb74eb6ce73" },
   "blink.cmp": { "branch": "main", "commit": "4b18c32adef2898f95cdef6192cbd5796c1a332d" },
   "bufferline.nvim": { "branch": "main", "commit": "655133c3b4c3e5e05ec549b9f8cc2894ac6f51b3" },
-  "build.nvim": { "branch": "main", "commit": "78751b111e13b55b8946a182c58bc571b472f606" },
   "catppuccin": { "branch": "main", "commit": "0a5de4da015a175f416d6ef1eda84661623e0500" },
   "diffview.nvim": { "branch": "main", "commit": "4516612fe98ff56ae0415a259ff6361a89419b0a" },
   "fidget.nvim": { "branch": "main", "commit": "7fa433a83118a70fe24c1ce88d5f0bd3453c0970" },
@@ -16,6 +16,7 @@
   "mason-lspconfig.nvim": { "branch": "main", "commit": "21c2a84ce368e99b18f52ab348c4c02c32c02fcf" },
   "mason-null-ls.nvim": { "branch": "main", "commit": "8e7806acaa87fae64f0bfde25bb4b87c18bd19b4" },
   "mason.nvim": { "branch": "main", "commit": "44d1e90e1f66e077268191e3ee9d2ac97cc18e65" },
+  "mini.icons": { "branch": "main", "commit": "5b9076dae1bfbe47ba4a14bc8b967cde0ab5d77e" },
   "mini.surround": { "branch": "main", "commit": "d205d1741d1fcc1f3117b4e839bf00f74ad72fa2" },
   "neogit": { "branch": "master", "commit": "d5af26e085a21b468b98c0e1257ac52706c1066f" },
   "none-ls.nvim": { "branch": "main", "commit": "f61f46ded0ca9edce7a09b674f8e162d10921426" },
