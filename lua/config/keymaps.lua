@@ -35,6 +35,9 @@ key.set("n", "G", "Gzz")
 -- clear highlight
 key.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
+key.set("n", "<leader>R", ":set makeprg=")
+key.set("n", "<leader>r", "<cmd>make!<CR>")
+
 -- PLUGINS
 
 -- Flash.nvim
