@@ -1,10 +1,10 @@
------------------------------------
--- init.lua - Kyle B, 20/03/2026 --
------------------------------------
+-- ================================
+-- init.lua - Kyle B, 20/03/2026 
+-- ================================
 
--- =================
+-- ================================
 -- OPTIONS
--- =================
+-- ================================
 
 vim.opt.termguicolors = true -- use more colors
 vim.g.have_nerd_font = true -- show nerd font icons
@@ -17,7 +17,6 @@ vim.cmd("set expandtab") -- use spaces instead of tabs
 vim.cmd("set tabstop=2") -- tab width
 vim.cmd("set softtabstop=2") -- soft tab stop not tabs on tab/bkspace
 vim.cmd("set shiftwidth=2") -- indent width
-vim.api.nvim_set_keymap("i", "jj", "<Esc>", { noremap = false }) -- `jj` to exit insert mode
 vim.opt.number = true -- show line numbers
 vim.opt.relativenumber = true -- line numbers relative to cursor
 vim.opt.cursorline = true -- current line highlighted
@@ -45,9 +44,10 @@ end
 vim.opt.undofile = true -- keep undo history
 vim.opt.undodir = undodir -- set dir for undo history
 
--- =================
+
+-- ================================
 -- STATUSLINE
--- =================
+-- ================================
 
 -- Git Branch
 local cached_branch = ""
@@ -192,3 +192,23 @@ local function setup_dynamic_statusline()
 end
 
 setup_dynamic_statusline()
+
+-- ================================
+-- KEYMAPS
+-- ================================
+
+vim.g.mapleader = " " -- leader key
+vim.g.maplocalleader = "\\" -- local leader key
+vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>") -- tmux-sessionizer
+vim.keymap.set("n", "<leader>r", "<cmd>update<cr><cmd>make!<cr>") -- run makeprg
+vim.keymap.set("n", "<leader>R", ":set makeprg=") -- set makeprg
+vim.keymap.set("n", "<leader>e", "<cmd>Ex<cr>") -- open netrw
+vim.keymap.set("n", "<leader>bd", "<cmd>bdelete<cr>") -- delete buffer
+vim.keymap.set("n", "<leader>bn", "<cmd>bnext<cr>") -- next buffer
+vim.keymap.set("n", "<leader>bp", "<cmd>bprevious<cr>") -- previous buffer
+vim.keymap.set({ "n", "v" }, "<leader>y", '"+y') -- yank to system clipboard
+vim.keymap.set("n", "n", "nzzzv") -- search keeps result centered
+vim.keymap.set("n", "N", "Nzzzv") -- search keeps result centered
+vim.keymap.set("n", "G", "Gzz") -- center bottom line
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>") -- clear highlight
+vim.api.nvim_set_keymap("i", "jj", "<Esc>", { noremap = false }) -- `jj` to exit insert mode
