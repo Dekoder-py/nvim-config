@@ -1,5 +1,5 @@
 -- ================================
--- init.lua - Kyle B, 20/03/2026 
+-- init.lua - Kyle B, 20/03/2026
 -- ================================
 
 -- ================================
@@ -33,13 +33,12 @@ vim.opt.foldlevel = 99 -- start with all folds open
 vim.opt.swapfile = false -- turn off swapfile
 local undodir = vim.fn.expand("~/.vim/undodir")
 if
-  vim.fn.isdirectory(undodir) == 0 -- create dir if not exists
+	vim.fn.isdirectory(undodir) == 0 -- create dir if not exists
 then
-  vim.fn.mkdir(undodir, "p")
+	vim.fn.mkdir(undodir, "p")
 end
 vim.opt.undofile = true -- keep undo history
 vim.opt.undodir = undodir -- set dir for undo history
-
 
 -- ================================
 -- STATUSLINE
@@ -49,21 +48,21 @@ vim.opt.undodir = undodir -- set dir for undo history
 local cached_branch = ""
 local last_check = 0
 local function git_branch()
-  local now = vim.loop.now()
-  if now - last_check > 5000 then
-    cached_branch = vim.fn.system("git branch --show-current 2>/dev/null | tr -d '\n'")
-    last_check = now
-  end
-  if cached_branch ~= "" then
-    return "\u{e725} " .. cached_branch .. " "
-  end
-  return ""
+	local now = vim.loop.now()
+	if now - last_check > 5000 then
+		cached_branch = vim.fn.system("git branch --show-current 2>/dev/null | tr -d '\n'")
+		last_check = now
+	end
+	if cached_branch ~= "" then
+		return "\u{e725} " .. cached_branch .. " "
+	end
+	return ""
 end
 
 -- File Type
 local function file_type()
-  local ft = vim.bo.filetype
-  local icons = {
+	local ft = vim.bo.filetype
+	local icons = {
 		lua = "\u{e620} ",
 		python = "\u{e73c} ",
 		javascript = "\u{e74e} ",
@@ -101,13 +100,13 @@ local function file_type()
 		vue = "\u{fd42} ",
 		svelte = "\u{e697} ",
 		astro = "\u{e628} ",
-  }
+	}
 
-  if ft == "" then
-    return " \u{f15b} "
-  end
+	if ft == "" then
+		return " \u{f15b} "
+	end
 
-  return ((icons[ft] or " \u{f15b} ") .. ft)
+	return ((icons[ft] or " \u{f15b} ") .. ft)
 end
 
 local function file_size()
@@ -156,9 +155,9 @@ vim.cmd([[
 ]])
 
 local function setup_dynamic_statusline()
-  vim.api.nvim_set_hl(0, "StatusLine", { bg = "#313244", fg = "#cdd6f4" })
-  vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#181825", fg = "#585b70" }) -- inactive windows
-  vim.api.nvim_set_hl(0, "StatusLineBold", { bold = true, bg = "#313244", fg = "#cdd6f4" })
+	vim.api.nvim_set_hl(0, "StatusLine", { bg = "#313244", fg = "#cdd6f4" })
+	vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#181825", fg = "#585b70" }) -- inactive windows
+	vim.api.nvim_set_hl(0, "StatusLineBold", { bold = true, bg = "#313244", fg = "#cdd6f4" })
 
 	vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
 		callback = function()
@@ -174,7 +173,7 @@ local function setup_dynamic_statusline()
 				" \u{e0b1} ",
 				"%{v:lua.file_size()}",
 				"%=",
-				" \u{f017} %l:%c  %P ",
+				"  %l:%c  %P ",
 			})
 		end,
 	})
@@ -227,12 +226,13 @@ vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv") -- move selection down
 vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv") -- move selection up
 vim.keymap.set("v", ">", ">gv") -- indent left and reselect
 vim.keymap.set("v", "<", "<gv") -- indent left and reselect
+vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format) -- format buffer
 
 -- ================================
 -- AUTOCMDS
 -- ================================
 
-local augroup = vim.api.nvim_create_augroup("UserConfig", { clear = true} )
+local augroup = vim.api.nvim_create_augroup("UserConfig", { clear = true })
 
 -- highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -245,13 +245,13 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 -- wrap and spellcheck on md files
 vim.api.nvim_create_autocmd("FileType", {
-  group = augroup,
-  pattern = { "markdown" },
-  callback = function()
-    vim.opt_local.wrap = true
-    vim.opt_local.linebreak = true
-    vim.opt_local.spell = true
-  end
+	group = augroup,
+	pattern = { "markdown" },
+	callback = function()
+		vim.opt_local.wrap = true
+		vim.opt_local.linebreak = true
+		vim.opt_local.spell = true
+	end,
 })
 
 -- ================================
@@ -259,24 +259,27 @@ vim.api.nvim_create_autocmd("FileType", {
 -- ================================
 
 local function packadd(name)
-  vim.cmd("packadd " .. name)
+	vim.cmd("packadd " .. name)
 end
 
 vim.pack.add({
-  "https://github.com/wakatime/vim-wakatime",
-  "https://github.com/ibhagwan/fzf-lua",
-  "https://github.com/rcarriga/nvim-notify",
-  "https://github.com/nvim-lua/plenary.nvim",
-  "https://github.com/NeogitOrg/neogit",
-  {
-    src = "https://github.com/nvim-treesitter/nvim-treesitter",
-    branch = "main",
-    build = ":TSUpdate",
-  },
-  "https://github.com/lewis6991/gitsigns.nvim",
-  -- LSP
-  "https://github.com/neovim/nvim-lspconfig",
-  "https://github.com/mason-org/mason.nvim",
+	"https://github.com/wakatime/vim-wakatime",
+	"https://github.com/ibhagwan/fzf-lua",
+	"https://github.com/rcarriga/nvim-notify",
+	"https://github.com/nvim-lua/plenary.nvim",
+	"https://github.com/NeogitOrg/neogit",
+	{
+		src = "https://github.com/nvim-treesitter/nvim-treesitter",
+		branch = "main",
+		build = ":TSUpdate",
+	},
+	"https://github.com/lewis6991/gitsigns.nvim",
+	-- LSP
+	"https://github.com/neovim/nvim-lspconfig",
+	"https://github.com/mason-org/mason.nvim",
+	"https://github.com/mason-org/mason-lspconfig.nvim",
+	"https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
+	"https://github.com/creativenull/efmls-configs-nvim",
 })
 
 packadd("vim-wakatime")
@@ -289,6 +292,9 @@ packadd("gitsigns.nvim")
 -- LSP
 packadd("nvim-lspconfig")
 packadd("mason.nvim")
+packadd("mason-lspconfig.nvim")
+packadd("mason-tool-installer.nvim")
+packadd("efmls-configs-nvim")
 
 -- ================================
 -- PLUGINS (config)
@@ -296,73 +302,76 @@ packadd("mason.nvim")
 
 -- Treesitter
 local setup_treesitter = function()
-  local treesitter = require("nvim-treesitter")
-  treesitter.setup({})
-  local ensure_installed = {
-    "vim",
-    "vimdoc",
-    "rust",
-    "c",
-    "cpp",
-    "lua",
-    "html",
-    "css",
-    "javascript",
-    "typescript",
-    "astro",
-    "svelte",
-    "markdown",
-    "bash",
-    "python"
-  }
+	local treesitter = require("nvim-treesitter")
+	treesitter.setup({})
+	local ensure_installed = {
+		"vim",
+		"vimdoc",
+		"rust",
+		"c",
+		"cpp",
+		"lua",
+		"html",
+		"css",
+		"javascript",
+		"typescript",
+		"astro",
+		"svelte",
+		"markdown",
+		"bash",
+		"python",
+	}
 
-  local config = require("nvim-treesitter.config")
+	local config = require("nvim-treesitter.config")
 
-  local already_installed = config.get_installed()
-  local parsers_to_install = {}
+	local already_installed = config.get_installed()
+	local parsers_to_install = {}
 
-  for _, parser in ipairs(ensure_installed) do
-    if not vim.tbl_contains(already_installed, parser) then
-      table.insert(parsers_to_install, parser)
-    end
-  end
+	for _, parser in ipairs(ensure_installed) do
+		if not vim.tbl_contains(already_installed, parser) then
+			table.insert(parsers_to_install, parser)
+		end
+	end
 
-  if #parsers_to_install > 0 then
+	if #parsers_to_install > 0 then
 		treesitter.install(parsers_to_install)
 	end
 
-  local group = vim.api.nvim_create_augroup("TreeSitterConfig", { clear = true })
+	local group = vim.api.nvim_create_augroup("TreeSitterConfig", { clear = true })
 	vim.api.nvim_create_autocmd("FileType", {
 		group = group,
 		callback = function(args)
 			if vim.list_contains(treesitter.get_installed(), vim.treesitter.language.get_lang(args.match)) then
 				vim.treesitter.start(args.buf)
 			end
-    end,
+		end,
 	})
 end
 
 setup_treesitter()
 
+-- Notify
+require("notify").setup({})
+
 -- FZF
 require("fzf-lua").setup({})
 vim.keymap.set("n", "<leader>ff", function()
-  require("fzf-lua").files()
+	require("fzf-lua").files()
 end)
 vim.keymap.set("n", "<leader>fg", function()
-  require("fzf-lua").live_grep()
+	require("fzf-lua").live_grep()
 end)
 vim.keymap.set("n", "<leader>fb", function()
-  require("fzf-lua").buffers()
+	require("fzf-lua").buffers()
 end)
 vim.keymap.set("n", "<leader>fh", function()
-  require("fzf-lua").help_tags()
+	require("fzf-lua").help_tags()
 end)
 vim.keymap.set("n", "<leader>fx", function()
-  require("fzf-lua").diagnostics_document()
+	require("fzf-lua").diagnostics_document()
 end)
 vim.keymap.set("n", "<leader>fX", function()
-  require("fzf-lua").diagnostics_workspace()
+	require("fzf-lua").diagnostics_workspace()
 end)
 
 -- Neogit
@@ -375,8 +384,35 @@ require("gitsigns").setup({})
 -- ================================
 -- LSP
 -- ================================
-require("mason").setup({
-  ensure_installed = { "lua_ls", "pyright", "bashls", "ast_grep", "clangd", "jdtls", "rust_analyzer"},
+require("mason").setup()
+require("mason-lspconfig").setup({
+	ensure_installed = {
+		"lua_ls",
+		"pyright",
+		"bashls",
+		"ast_grep",
+		"clangd",
+		"jdtls",
+		"rust_analyzer",
+		"efm",
+	},
+})
+
+require("mason-tool-installer").setup({
+	ensure_installed = {
+		"ast_grep",
+		-- "luacheck", (commented because installed with system)
+		"stylua",
+		"flake8",
+		"black",
+		"prettierd",
+		"eslint_d",
+		"fixjson",
+		"shellcheck",
+		"shfmt",
+		"cpplint",
+		"clang-format",
+	},
 })
 
 local diagnostic_signs = {
@@ -387,8 +423,8 @@ local diagnostic_signs = {
 }
 
 vim.diagnostic.config({
-  virtual_text = { prefix = "●", spacing = 4 },
-  signs = {
+	virtual_text = { prefix = "●", spacing = 4, current_line = true },
+	signs = {
 		text = {
 			[vim.diagnostic.severity.ERROR] = diagnostic_signs.Error,
 			[vim.diagnostic.severity.WARN] = diagnostic_signs.Warn,
@@ -396,10 +432,10 @@ vim.diagnostic.config({
 			[vim.diagnostic.severity.HINT] = diagnostic_signs.Hint,
 		},
 	},
-  underline = true,
-  update_in_insert = false,
-  severity_sort = true,
-  float = { border = "rounded", source = "always", header = "", prefix = "", focusable = false, style = "minimal" }
+	underline = true,
+	update_in_insert = false,
+	severity_sort = true,
+	float = { border = "rounded", scope = "line", source = "always", header = "", prefix = "", focusable = false },
 })
 
 do
@@ -507,14 +543,77 @@ vim.lsp.config("clangd", {})
 vim.lsp.config("ast_grep", {})
 vim.lsp.config("jdtls", {})
 
+do
+	local luacheck = require("efmls-configs.linters.luacheck")
+	local stylua = require("efmls-configs.formatters.stylua")
+
+	local flake8 = require("efmls-configs.linters.flake8")
+	local black = require("efmls-configs.formatters.black")
+
+	local prettier_d = require("efmls-configs.formatters.prettier_d")
+	local eslint_d = require("efmls-configs.linters.eslint_d")
+
+	local fixjson = require("efmls-configs.formatters.fixjson")
+
+	local shellcheck = require("efmls-configs.linters.shellcheck")
+	local shfmt = require("efmls-configs.formatters.shfmt")
+
+	local cpplint = require("efmls-configs.linters.cpplint")
+	local clangfmt = require("efmls-configs.formatters.clang_format")
+
+	vim.lsp.config("efm", {
+		filetypes = {
+			"c",
+			"cpp",
+			"css",
+			"go",
+			"html",
+			"javascript",
+			"javascriptreact",
+			"json",
+			"jsonc",
+			"lua",
+			"markdown",
+			"python",
+			"sh",
+			"typescript",
+			"typescriptreact",
+			"vue",
+			"svelte",
+		},
+		init_options = { documentFormatting = true },
+		settings = {
+			languages = {
+				c = { clangfmt, cpplint },
+				cpp = { clangfmt, cpplint },
+				css = { prettier_d },
+				html = { prettier_d },
+				javascript = { eslint_d, prettier_d },
+				javascriptreact = { eslint_d, prettier_d },
+				json = { eslint_d, fixjson },
+				jsonc = { eslint_d, fixjson },
+				lua = { luacheck, stylua },
+				markdown = { prettier_d },
+				python = { flake8, black },
+				sh = { shellcheck, shfmt },
+				typescript = { eslint_d, prettier_d },
+				typescriptreact = { eslint_d, prettier_d },
+				vue = { eslint_d, prettier_d },
+				svelte = { eslint_d, prettier_d },
+			},
+		},
+	})
+end
+
 vim.lsp.enable({
 	"lua_ls",
 	"pyright",
 	"bashls",
 	"ts_ls",
 	"rust_analyzer",
-  "astro_language_server",
+	"astro_language_server",
 	"clangd",
-  "ast_grep",
-  "jdtls",
+	"ast_grep",
+	"jdtls",
+	"efm",
 })
