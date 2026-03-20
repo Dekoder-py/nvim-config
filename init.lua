@@ -194,39 +194,38 @@ setup_dynamic_statusline()
 
 vim.g.mapleader = " " -- leader key
 vim.g.maplocalleader = "\\" -- local leader key
-vim.keymap.set("n", "<leader>x", "<cmd>restart<cr>") -- restart nvim
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>") -- tmux-sessionizer
-vim.keymap.set("n", "<leader>r", "<cmd>update<cr><cmd>make!<cr>") -- run makeprg
-vim.keymap.set("n", "<leader>R", ":set makeprg=") -- set makeprg
-vim.keymap.set("n", "<leader>e", "<cmd>Ex<cr>") -- open netrw
-vim.keymap.set("n", "<leader>bd", "<cmd>bdelete<cr>") -- delete buffer
-vim.keymap.set("n", "<leader>bn", "<cmd>bnext<cr>") -- next buffer
-vim.keymap.set("n", "<leader>bp", "<cmd>bprevious<cr>") -- previous buffer
-vim.keymap.set({ "n", "v" }, "<leader>y", '"+y') -- yank to system clipboard
-vim.keymap.set("n", "n", "nzzzv") -- search keeps result centered
-vim.keymap.set("n", "N", "Nzzzv") -- search keeps result centered
-vim.keymap.set("n", "<C-d>", "<C-d>zz") -- keep CTRL-d centered
-vim.keymap.set("n", "<C-u>", "<C-u>zz") -- keep CTRL-u centered
-vim.keymap.set("n", "G", "Gzz") -- center bottom line
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>") -- clear highlight
-vim.api.nvim_set_keymap("i", "jj", "<Esc>", { noremap = false }) -- `jj` to exit insert mode
-vim.keymap.set("n", "<leader>sv", "<cmd>vsplit<cr>") -- split vertically
-vim.keymap.set("n", "<leader>sh", "<cmd>split<cr>") -- split horizontally
-vim.keymap.set("n", "<C-h>", "<C-w>h") -- move to the left window
-vim.keymap.set("n", "<C-j>", "<C-w>j") -- move to the down window
-vim.keymap.set("n", "<C-k>", "<C-w>k") -- move to the up window
-vim.keymap.set("n", "<C-l>", "<C-w>l") -- move to the right window
-vim.keymap.set("n", "<C-Up>", "<cmd>resize -2<cr>") -- change window height
-vim.keymap.set("n", "<C-Down>", "<cmd>resize +2<cr>") -- change window height
-vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<cr>") -- change window width
-vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<cr>") -- change window width
-vim.keymap.set("n", "<A-j>", ":m .+1<CR>==") -- move line down
-vim.keymap.set("n", "<A-k>", ":m .-2<CR>==") -- move line up
-vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv") -- move selection down
-vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv") -- move selection up
-vim.keymap.set("v", ">", ">gv") -- indent left and reselect
-vim.keymap.set("v", "<", "<gv") -- indent left and reselect
-vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format) -- format buffer
+vim.keymap.set("n", "<leader>x", "<cmd>restart<cr>", { desc = "restart nvim" })
+vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", { desc = "tmux-sessionizer" })
+vim.keymap.set("n", "<leader>r", "<cmd>update<cr><cmd>make!<cr>", { desc = "run makeprg" })
+vim.keymap.set("n", "<leader>R", ":set makeprg=", { desc = "set makeprg" })
+vim.keymap.set("n", "<leader>e", "<cmd>Ex<cr>", { desc = "open netrw" })
+vim.keymap.set("n", "<leader>bd", "<cmd>bdelete<cr>", { desc = "delete buffer" })
+vim.keymap.set("n", "<leader>bn", "<cmd>bnext<cr>", { desc = "next buffer" })
+vim.keymap.set("n", "<leader>bp", "<cmd>bprevious<cr>", { desc = "previous buffer" })
+vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', { desc = "yank to system clipboard" })
+vim.keymap.set("n", "n", "nzzzv", { desc = "search keeps result centered" })
+vim.keymap.set("n", "N", "Nzzzv", { desc = "search keeps result centered" })
+vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "keep CTRL-d centered" })
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "keep CTRL-u centered" })
+vim.keymap.set("n", "G", "Gzz", { desc = "center bottom line" })
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "clear highlight" })
+vim.api.nvim_set_keymap("i", "jj", "<Esc>", { noremap = false, desc = "`jj` to exit insert mode" })
+vim.keymap.set("n", "<leader>sv", "<cmd>vsplit<cr>", { desc = "split vertically" })
+vim.keymap.set("n", "<leader>sh", "<cmd>split<cr>", { desc = "split horizontally" })
+vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "move to the left window" })
+vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "move to the down window" })
+vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "move to the up window" })
+vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "move to the right window" })
+vim.keymap.set("n", "<C-Up>", "<cmd>resize -2<cr>", { desc = "change window height" })
+vim.keymap.set("n", "<C-Down>", "<cmd>resize +2<cr>", { desc = "change window height" })
+vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "change window width" })
+vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "change window width" })
+vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { desc = "move line down" })
+vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { desc = "move line up" })
+vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "move selection down" })
+vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "move selection up" })
+vim.keymap.set("v", ">", ">gv", { desc = "indent left and reselect" })
+vim.keymap.set("v", "<", "<gv", { desc = "indent left and reselect" })
 
 -- ================================
 -- AUTOCMDS
@@ -268,6 +267,7 @@ vim.pack.add({
 	"https://github.com/rcarriga/nvim-notify",
 	"https://github.com/nvim-lua/plenary.nvim",
 	"https://github.com/NeogitOrg/neogit",
+	"https://github.com/folke/which-key.nvim",
 	{
 		src = "https://github.com/nvim-treesitter/nvim-treesitter",
 		branch = "main",
@@ -290,6 +290,7 @@ packadd("fzf-lua")
 packadd("nvim-notify")
 packadd("plenary.nvim")
 packadd("neogit")
+packadd("which-key.nvim")
 packadd("nvim-treesitter")
 packadd("gitsigns.nvim")
 -- LSP
@@ -363,35 +364,41 @@ require("notify").setup({})
 require("fzf-lua").setup({})
 vim.keymap.set("n", "<leader>ff", function()
 	require("fzf-lua").files()
-end)
+end, { desc = "Find files" })
 vim.keymap.set("n", "<leader>fg", function()
 	require("fzf-lua").live_grep()
-end)
+end, { desc = "Live grep" })
 vim.keymap.set("n", "<leader>fb", function()
 	require("fzf-lua").buffers()
-end)
+end, { desc = "Find buffers" })
 vim.keymap.set("n", "<leader>fh", function()
 	require("fzf-lua").help_tags()
-end)
+end, { desc = "Help tags" })
 vim.keymap.set("n", "<leader>fx", function()
 	require("fzf-lua").diagnostics_document()
-end)
+end, { desc = "Document diagnostics" })
 vim.keymap.set("n", "<leader>fX", function()
 	require("fzf-lua").diagnostics_workspace()
-end)
+end, { desc = "Workspace diagnostics" })
 
 -- Neogit
 require("neogit").setup({})
-vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>")
+vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Open Neogit" })
+
+-- which-key
+require("which-key").setup({})
+vim.keymap.set("n", "<leader>?", function()
+	require("which-key").show({ global = false })
+end, { desc = "Buffer Local Keymaps (which-key)" })
 
 -- Gitsigns
 require("gitsigns").setup({})
 
 -- lspsaga
 require("lspsaga").setup({
-  ui = {
-    code_action = ""
-  }
+	ui = {
+		code_action = "",
+	},
 })
 
 -- ================================
@@ -471,43 +478,85 @@ local function lsp_on_attach(ev)
 
 	vim.keymap.set("n", "<leader>gd", function()
 		require("fzf-lua").lsp_definitions({ jump_to_single_result = true })
-	end, opts)
+	end, vim.tbl_extend("force", opts, { desc = "Go to definition" }))
 
-	vim.keymap.set("n", "<leader>gD", vim.lsp.buf.definition, opts)
+	vim.keymap.set(
+		"n",
+		"<leader>gD",
+		vim.lsp.buf.definition,
+		vim.tbl_extend("force", opts, { desc = "Go to definition (native)" })
+	)
 
 	vim.keymap.set("n", "<leader>gS", function()
 		vim.cmd("vsplit")
 		vim.lsp.buf.definition()
-	end, opts)
+	end, vim.tbl_extend("force", opts, { desc = "Go to definition in split" }))
 
-	vim.keymap.set("n", "<leader>ca", "<cmd>Lspsaga code_action<cr>", opts)
-	vim.keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<cr>", opts)
+	vim.keymap.set(
+		"n",
+		"<leader>ca",
+		"<cmd>Lspsaga code_action<cr>",
+		vim.tbl_extend("force", opts, { desc = "Code action" })
+	)
+	vim.keymap.set(
+		"n",
+		"<leader>rn",
+		"<cmd>Lspsaga rename<cr>",
+		vim.tbl_extend("force", opts, { desc = "Rename symbol" })
+	)
 
-	vim.keymap.set("n", "<leader>D", "<cmd>Lspsaga show_line_diagnostics<cr>", opts)
-	vim.keymap.set("n", "<leader>d", "<cmd>Lspsaga show_cursor_diagnostics<cr>", opts)
-	vim.keymap.set("n", "<leader>nd", "<cmd>Lspsaga diagnostic_jump_next<cr>", opts)
-	vim.keymap.set("n", "<leader>pd", "<cmd>Lspsaga diagnostic_jump_next<cr>", opts)
+	vim.keymap.set(
+		"n",
+		"<leader>D",
+		"<cmd>Lspsaga show_line_diagnostics<cr>",
+		vim.tbl_extend("force", opts, { desc = "Show line diagnostics" })
+	)
+	vim.keymap.set(
+		"n",
+		"<leader>d",
+		"<cmd>Lspsaga show_cursor_diagnostics<cr>",
+		vim.tbl_extend("force", opts, { desc = "Show cursor diagnostics" })
+	)
+	vim.keymap.set(
+		"n",
+		"<leader>nd",
+		"<cmd>Lspsaga diagnostic_jump_next<cr>",
+		vim.tbl_extend("force", opts, { desc = "Next diagnostic" })
+	)
+	vim.keymap.set(
+		"n",
+		"<leader>pd",
+		"<cmd>Lspsaga diagnostic_jump_next<cr>",
+		vim.tbl_extend("force", opts, { desc = "Previous diagnostic" })
+	)
 
-	vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<cr>", opts)
+	vim.keymap.set(
+		"n",
+		"K",
+		"<cmd>Lspsaga hover_doc<cr>",
+		vim.tbl_extend("force", opts, { desc = "Hover documentation" })
+	)
 
 	vim.keymap.set("n", "<leader>fd", function()
 		require("fzf-lua").lsp_definitions({ jump_to_single_result = true })
-	end, opts)
+	end, vim.tbl_extend("force", opts, { desc = "Find definitions" }))
 	vim.keymap.set("n", "<leader>fr", function()
 		require("fzf-lua").lsp_references()
-	end, opts)
+	end, vim.tbl_extend("force", opts, { desc = "Find references" }))
 	vim.keymap.set("n", "<leader>ft", function()
 		require("fzf-lua").lsp_typedefs()
-	end, opts)
+	end, vim.tbl_extend("force", opts, { desc = "Find type definitions" }))
 	vim.keymap.set("n", "<leader>fs", function()
 		require("fzf-lua").lsp_document_symbols()
-	end, opts)
+	end, vim.tbl_extend("force", opts, { desc = "Find document symbols" }))
 	vim.keymap.set("n", "<leader>fw", function()
 		require("fzf-lua").lsp_workspace_symbols()
-	end, opts)
+	end, vim.tbl_extend("force", opts, { desc = "Find workspace symbols" }))
 	vim.keymap.set("n", "<leader>fi", function()
 		require("fzf-lua").lsp_implementations()
-	end, opts)
+	end, vim.tbl_extend("force", opts, { desc = "Find implementations" }))
+
+	vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format, { desc = "format buffer" })
 
 	if client:supports_method("textDocument/codeAction", bufnr) then
 		vim.keymap.set("n", "<leader>oi", function()
@@ -519,7 +568,7 @@ local function lsp_on_attach(ev)
 			vim.defer_fn(function()
 				vim.lsp.buf.format({ bufnr = bufnr })
 			end, 50)
-		end, opts)
+		end, vim.tbl_extend("force", opts, { desc = "Organize imports" }))
 	end
 end
 
