@@ -375,7 +375,9 @@ require("gitsigns").setup({})
 -- ================================
 -- LSP
 -- ================================
-require("mason").setup({})
+require("mason").setup({
+  ensure_installed = { "lua_ls", "pyright", "bashls", "ast_grep", "clangd", "jdtls", "rust_analyzer"},
+})
 
 local diagnostic_signs = {
 	Error = " ",
@@ -502,6 +504,8 @@ vim.lsp.config("ts_ls", {})
 vim.lsp.config("rust_analyzer", {})
 vim.lsp.config("astro_language_server", {})
 vim.lsp.config("clangd", {})
+vim.lsp.config("ast_grep", {})
+vim.lsp.config("jdtls", {})
 
 vim.lsp.enable({
 	"lua_ls",
@@ -511,4 +515,6 @@ vim.lsp.enable({
 	"rust_analyzer",
   "astro_language_server",
 	"clangd",
+  "ast_grep",
+  "jdtls",
 })
