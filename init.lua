@@ -8,6 +8,7 @@ vim.g.have_nerd_font = true
 vim.cmd.colorscheme("catppuccin")
 vim.opt.winborder = "rounded"
 vim.o.scrolloff = 10
+vim.o.sidescrolloff = 10
 
 -- tab settings
 vim.cmd("set expandtab")
