@@ -270,6 +270,7 @@ vim.pack.add({
   "https://github.com/nvim-lua/plenary.nvim",
   "https://github.com/NeogitOrg/neogit",
   "https://github.com/nvim-treesitter/nvim-treesitter",
+  "https://github.com/lewis6991/gitsigns.nvim",
 })
 
 packadd("vim-wakatime")
@@ -278,6 +279,7 @@ packadd("nvim-notify")
 packadd("plenary.nvim")
 packadd("neogit")
 packadd("nvim-treesitter")
+packadd("gitsigns.nvim")
 
 -- ================================
 -- PLUGINS (config)
@@ -357,3 +359,6 @@ end)
 -- Neogit
 require("neogit").setup({})
 vim.keymap.set("n", "<leader>g", "<cmd>Neogit<cr>")
+
+-- Gitsigns
+require("gitsigns").setup({})
