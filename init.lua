@@ -193,6 +193,7 @@ setup_dynamic_statusline()
 
 vim.g.mapleader = " " -- leader key
 vim.g.maplocalleader = "\\" -- local leader key
+vim.keymap.set("n", "<leader>x", "<cmd>restart<cr>") -- restart nvim
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>") -- tmux-sessionizer
 vim.keymap.set("n", "<leader>r", "<cmd>update<cr><cmd>make!<cr>") -- run makeprg
 vim.keymap.set("n", "<leader>R", ":set makeprg=") -- set makeprg
@@ -250,3 +251,54 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.spell = true
   end
 })
+
+-- ================================
+-- PLUGINS (vim.pack)
+-- ================================
+
+local function packadd(name) 
+  vim.cmd("packadd " .. name)
+end
+
+vim.pack.add({
+  "https://github.com/wakatime/vim-wakatime",
+  "https://github.com/ibhagwan/fzf-lua",
+  "https://github.com/rcarriga/nvim-notify",
+  "https://github.com/nvim-lua/plenary.nvim",
+  "https://github.com/NeogitOrg/neogit",
+})
+
+packadd("vim-wakatime")
+packadd("fzf-lua")
+packadd("nvim-notify")
+packadd("plenary.nvim")
+packadd("neogit")
+
+-- ================================
+-- PLUGINS (config)
+-- ================================
+
+-- FZF
+require("fzf-lua").setup({})
+vim.keymap.set("n", "<leader>ff", function()
+  require("fzf-lua").files()
+end)
+vim.keymap.set("n", "<leader>fg", function()
+  require("fzf-lua").live_grep()
+end)
+vim.keymap.set("n", "<leader>fb", function()
+  require("fzf-lua").buffers()
+end)
+vim.keymap.set("n", "<leader>fh", function()
+  require("fzf-lua").help_tags()
+end)
+vim.keymap.set("n", "<leader>fx", function()
+  require("fzf-lua").diagnostics_document()
+end)
+vim.keymap.set("n", "<leader>fX", function()
+  require("fzf-lua").diagnostics_workspace()
+end)
+
+-- Neogit
+require("neogit").setup({})
+vim.keymap.set("n", "<leader>g", "<cmd>Neogit<cr>")

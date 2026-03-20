@@ -1,0 +1,28 @@
+{
+  "plugins": {
+    "fzf-lua": {
+      "rev": "8a79ee54d6216d10b2f153921a12b152be0c1a20",
+      "src": "https://github.com/ibhagwan/fzf-lua"
+    },
+    "mini.nvim": {
+      "rev": "adeaeac8622b966273bb161977bff1293dd44565",
+      "src": "https://github.com/nvim-mini/mini.nvim"
+    },
+    "neogit": {
+      "rev": "d3890fc3cdf0859845a86b2be306bba01458df1a",
+      "src": "https://github.com/NeogitOrg/neogit"
+    },
+    "nvim-notify": {
+      "rev": "8701bece920b38ea289b457f902e2ad184131a5d",
+      "src": "https://github.com/rcarriga/nvim-notify"
+    },
+    "plenary.nvim": {
+      "rev": "b9fd5226c2f76c951fc8ed5923d85e4de065e509",
+      "src": "https://github.com/nvim-lua/plenary.nvim"
+    },
+    "vim-wakatime": {
+      "rev": "d7973b157a632d1edeff01818f18d67e584eeaff",
+      "src": "https://github.com/wakatime/vim-wakatime"
+    }
+  }
+}
