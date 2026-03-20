@@ -280,6 +280,8 @@ vim.pack.add({
 	"https://github.com/mason-org/mason-lspconfig.nvim",
 	"https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
 	"https://github.com/creativenull/efmls-configs-nvim",
+ "https://github.com/Saghen/blink.cmp",
+	"https://github.com/L3MON4D3/LuaSnip",
 })
 
 packadd("vim-wakatime")
@@ -295,6 +297,8 @@ packadd("mason.nvim")
 packadd("mason-lspconfig.nvim")
 packadd("mason-tool-installer.nvim")
 packadd("efmls-configs-nvim")
+packadd("blink.cmp")
+packadd("LuaSnip")
 
 -- ================================
 -- PLUGINS (config)
@@ -376,7 +380,7 @@ end)
 
 -- Neogit
 require("neogit").setup({})
-vim.keymap.set("n", "<leader>g", "<cmd>Neogit<cr>")
+vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>")
 
 -- Gitsigns
 require("gitsigns").setup({})
@@ -525,6 +529,34 @@ vim.keymap.set("n", "<leader>q", function()
 	vim.diagnostic.setloclist({ open = true })
 end, { desc = "Open diagnostic list" })
 vim.keymap.set("n", "<leader>dl", vim.diagnostic.open_float, { desc = "Show line diagnostics" })
+
+require("blink.cmp").setup({
+	keymap = {
+		preset = "none",
+		["<C-Space>"] = { "show", "hide" },
+		["<CR>"] = { "accept", "fallback" },
+		["<C-j>"] = { "select_next", "fallback" },
+		["<C-k>"] = { "select_prev", "fallback" },
+		["<Tab>"] = { "snippet_forward", "fallback" },
+		["<S-Tab>"] = { "snippet_backward", "fallback" },
+	},
+	appearance = { nerd_font_variant = "mono" },
+	completion = { menu = { auto_show = true } },
+	sources = { default = { "lsp", "path", "buffer", "snippets" } },
+	snippets = {
+		expand = function(snippet)
+			require("luasnip").lsp_expand(snippet)
+		end,
+	},
+
+	fuzzy = {
+		implementation = "prefer_rust",
+	},
+})
+
+vim.lsp.config["*"] = {
+	capabilities = require("blink.cmp").get_lsp_capabilities(),
+}
 
 vim.lsp.config("lua_ls", {
 	settings = {
