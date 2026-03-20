@@ -9,7 +9,6 @@
 vim.opt.termguicolors = true -- use more colors
 vim.g.have_nerd_font = true -- show nerd font icons
 vim.cmd.colorscheme("catppuccin") -- the best colorscheme don't argue
-vim.opt.winborder = "rounded" -- rounded border 
 vim.opt.scrolloff = 10 -- keep 10 lines vertically on screen
 vim.opt.sidescrolloff = 10 -- keep 10 lines horizontally on screen
 vim.opt.colorcolumn = "120" -- show a line down screen on char pos 120
@@ -49,7 +48,7 @@ vim.opt.undodir = undodir -- set dir for undo history
 -- Git Branch
 local cached_branch = ""
 local last_check = 0
-local function git_branch() 
+local function git_branch()
   local now = vim.loop.now()
   if now - last_check > 5000 then
     cached_branch = vim.fn.system("git branch --show-current 2>/dev/null | tr -d '\n'")
@@ -242,7 +241,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	callback = function()
 		vim.highlight.on_yank()
 	end,
-}) 
+})
 
 -- wrap and spellcheck on md files
 vim.api.nvim_create_autocmd("FileType", {
@@ -259,7 +258,7 @@ vim.api.nvim_create_autocmd("FileType", {
 -- PLUGINS (vim.pack)
 -- ================================
 
-local function packadd(name) 
+local function packadd(name)
   vim.cmd("packadd " .. name)
 end
 
@@ -270,11 +269,14 @@ vim.pack.add({
   "https://github.com/nvim-lua/plenary.nvim",
   "https://github.com/NeogitOrg/neogit",
   {
-    src = "https://github.com/nvim-treesitter/nvim-treesitter", 
+    src = "https://github.com/nvim-treesitter/nvim-treesitter",
     branch = "main",
     build = ":TSUpdate",
   },
   "https://github.com/lewis6991/gitsigns.nvim",
+  -- LSP
+  "https://github.com/neovim/nvim-lspconfig",
+  "https://github.com/mason-org/mason.nvim",
 })
 
 packadd("vim-wakatime")
@@ -284,6 +286,9 @@ packadd("plenary.nvim")
 packadd("neogit")
 packadd("nvim-treesitter")
 packadd("gitsigns.nvim")
+-- LSP
+packadd("nvim-lspconfig")
+packadd("mason.nvim")
 
 -- ================================
 -- PLUGINS (config)
@@ -291,7 +296,7 @@ packadd("gitsigns.nvim")
 
 -- Treesitter
 local setup_treesitter = function()
-  local treesitter = require("nvim-treesitter") 
+  local treesitter = require("nvim-treesitter")
   treesitter.setup({})
   local ensure_installed = {
     "vim",
@@ -366,3 +371,144 @@ vim.keymap.set("n", "<leader>g", "<cmd>Neogit<cr>")
 
 -- Gitsigns
 require("gitsigns").setup({})
+
+-- ================================
+-- LSP
+-- ================================
+require("mason").setup({})
+
+local diagnostic_signs = {
+	Error = " ",
+	Warn = " ",
+	Hint = "",
+	Info = "",
+}
+
+vim.diagnostic.config({
+  virtual_text = { prefix = "●", spacing = 4 },
+  signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = diagnostic_signs.Error,
+			[vim.diagnostic.severity.WARN] = diagnostic_signs.Warn,
+			[vim.diagnostic.severity.INFO] = diagnostic_signs.Info,
+			[vim.diagnostic.severity.HINT] = diagnostic_signs.Hint,
+		},
+	},
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
+  float = { border = "rounded", source = "always", header = "", prefix = "", focusable = false, style = "minimal" }
+})
+
+do
+	local orig = vim.lsp.util.open_floating_preview
+	function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+		opts = opts or {}
+		opts.border = opts.border or "rounded"
+		return orig(contents, syntax, opts, ...)
+	end
+end
+
+local function lsp_on_attach(ev)
+	local client = vim.lsp.get_client_by_id(ev.data.client_id)
+	if not client then
+		return
+	end
+
+	local bufnr = ev.buf
+	local opts = { noremap = true, silent = true, buffer = bufnr }
+
+	vim.keymap.set("n", "<leader>gd", function()
+		require("fzf-lua").lsp_definitions({ jump_to_single_result = true })
+	end, opts)
+
+	vim.keymap.set("n", "<leader>gD", vim.lsp.buf.definition, opts)
+
+	vim.keymap.set("n", "<leader>gS", function()
+		vim.cmd("vsplit")
+		vim.lsp.buf.definition()
+	end, opts)
+
+	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+	vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+
+	vim.keymap.set("n", "<leader>D", function()
+		vim.diagnostic.open_float({ scope = "line" })
+	end, opts)
+	vim.keymap.set("n", "<leader>d", function()
+		vim.diagnostic.open_float({ scope = "cursor" })
+	end, opts)
+	vim.keymap.set("n", "<leader>nd", function()
+		vim.diagnostic.jump({ count = 1 })
+	end, opts)
+
+	vim.keymap.set("n", "<leader>pd", function()
+		vim.diagnostic.jump({ count = -1 })
+	end, opts)
+
+	vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+
+	vim.keymap.set("n", "<leader>fd", function()
+		require("fzf-lua").lsp_definitions({ jump_to_single_result = true })
+	end, opts)
+	vim.keymap.set("n", "<leader>fr", function()
+		require("fzf-lua").lsp_references()
+	end, opts)
+	vim.keymap.set("n", "<leader>ft", function()
+		require("fzf-lua").lsp_typedefs()
+	end, opts)
+	vim.keymap.set("n", "<leader>fs", function()
+		require("fzf-lua").lsp_document_symbols()
+	end, opts)
+	vim.keymap.set("n", "<leader>fw", function()
+		require("fzf-lua").lsp_workspace_symbols()
+	end, opts)
+	vim.keymap.set("n", "<leader>fi", function()
+		require("fzf-lua").lsp_implementations()
+	end, opts)
+
+	if client:supports_method("textDocument/codeAction", bufnr) then
+		vim.keymap.set("n", "<leader>oi", function()
+			vim.lsp.buf.code_action({
+				context = { only = { "source.organizeImports" }, diagnostics = {} },
+				apply = true,
+				bufnr = bufnr,
+			})
+			vim.defer_fn(function()
+				vim.lsp.buf.format({ bufnr = bufnr })
+			end, 50)
+		end, opts)
+	end
+end
+
+vim.api.nvim_create_autocmd("LspAttach", { group = augroup, callback = lsp_on_attach })
+
+vim.keymap.set("n", "<leader>q", function()
+	vim.diagnostic.setloclist({ open = true })
+end, { desc = "Open diagnostic list" })
+vim.keymap.set("n", "<leader>dl", vim.diagnostic.open_float, { desc = "Show line diagnostics" })
+
+vim.lsp.config("lua_ls", {
+	settings = {
+		Lua = {
+			diagnostics = { globals = { "vim" } },
+			telemetry = { enable = false },
+		},
+	},
+})
+vim.lsp.config("pyright", {})
+vim.lsp.config("bashls", {})
+vim.lsp.config("ts_ls", {})
+vim.lsp.config("rust_analyzer", {})
+vim.lsp.config("astro_language_server", {})
+vim.lsp.config("clangd", {})
+
+vim.lsp.enable({
+	"lua_ls",
+	"pyright",
+	"bashls",
+	"ts_ls",
+	"rust_analyzer",
+  "astro_language_server",
+	"clangd",
+})
