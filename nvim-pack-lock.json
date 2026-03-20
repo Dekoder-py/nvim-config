@@ -20,6 +20,10 @@
       "rev": "7c4faa3540d0781a28588cafbd4dd187a28ac6e3",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
+    "lspsaga.nvim": {
+      "rev": "562d9724e3869ffd1801c572dd149cc9f8d0cc36",
+      "src": "https://github.com/nvimdev/lspsaga.nvim"
+    },
     "mason-lspconfig.nvim": {
       "rev": "a979821a975897b88493843301950c456a725982",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim"

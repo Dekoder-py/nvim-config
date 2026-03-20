@@ -280,8 +280,9 @@ vim.pack.add({
 	"https://github.com/mason-org/mason-lspconfig.nvim",
 	"https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
 	"https://github.com/creativenull/efmls-configs-nvim",
- "https://github.com/Saghen/blink.cmp",
+	"https://github.com/Saghen/blink.cmp",
 	"https://github.com/L3MON4D3/LuaSnip",
+	"https://github.com/nvimdev/lspsaga.nvim",
 })
 
 packadd("vim-wakatime")
@@ -299,6 +300,7 @@ packadd("mason-tool-installer.nvim")
 packadd("efmls-configs-nvim")
 packadd("blink.cmp")
 packadd("LuaSnip")
+packadd("lspsaga.nvim")
 
 -- ================================
 -- PLUGINS (config)
@@ -384,6 +386,13 @@ vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>")
 
 -- Gitsigns
 require("gitsigns").setup({})
+
+-- lspsaga
+require("lspsaga").setup({
+  ui = {
+    code_action = ""
+  }
+})
 
 -- ================================
 -- LSP
@@ -471,24 +480,15 @@ local function lsp_on_attach(ev)
 		vim.lsp.buf.definition()
 	end, opts)
 
-	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-	vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+	vim.keymap.set("n", "<leader>ca", "<cmd>Lspsaga code_action<cr>", opts)
+	vim.keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<cr>", opts)
 
-	vim.keymap.set("n", "<leader>D", function()
-		vim.diagnostic.open_float({ scope = "line" })
-	end, opts)
-	vim.keymap.set("n", "<leader>d", function()
-		vim.diagnostic.open_float({ scope = "cursor" })
-	end, opts)
-	vim.keymap.set("n", "<leader>nd", function()
-		vim.diagnostic.jump({ count = 1 })
-	end, opts)
+	vim.keymap.set("n", "<leader>D", "<cmd>Lspsaga show_line_diagnostics<cr>", opts)
+	vim.keymap.set("n", "<leader>d", "<cmd>Lspsaga show_cursor_diagnostics<cr>", opts)
+	vim.keymap.set("n", "<leader>nd", "<cmd>Lspsaga diagnostic_jump_next<cr>", opts)
+	vim.keymap.set("n", "<leader>pd", "<cmd>Lspsaga diagnostic_jump_next<cr>", opts)
 
-	vim.keymap.set("n", "<leader>pd", function()
-		vim.diagnostic.jump({ count = -1 })
-	end, opts)
-
-	vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+	vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<cr>", opts)
 
 	vim.keymap.set("n", "<leader>fd", function()
 		require("fzf-lua").lsp_definitions({ jump_to_single_result = true })
