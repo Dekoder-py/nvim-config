@@ -26,6 +26,7 @@ vim.opt.ignorecase = true -- ignore case when searching
 vim.opt.smartcase = true -- case sensitive when mixed case search
 vim.opt.splitright = true -- split to the right
 vim.opt.splitbelow = true -- split down
+vim.opt.fillchars = { eob = " " } -- hide "~" on empty lines
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight when yanking text",
 	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
@@ -209,6 +210,24 @@ vim.keymap.set("n", "<leader>bp", "<cmd>bprevious<cr>") -- previous buffer
 vim.keymap.set({ "n", "v" }, "<leader>y", '"+y') -- yank to system clipboard
 vim.keymap.set("n", "n", "nzzzv") -- search keeps result centered
 vim.keymap.set("n", "N", "Nzzzv") -- search keeps result centered
+vim.keymap.set("n", "<C-d>", "<C-d>zz") -- keep CTRL-d centered
+vim.keymap.set("n", "<C-u>", "<C-u>zz") -- keep CTRL-u centered
 vim.keymap.set("n", "G", "Gzz") -- center bottom line
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>") -- clear highlight
 vim.api.nvim_set_keymap("i", "jj", "<Esc>", { noremap = false }) -- `jj` to exit insert mode
+vim.keymap.set("n", "<leader>sv", "<cmd>vsplit<cr>") -- split vertically
+vim.keymap.set("n", "<leader>sh", "<cmd>split<cr>") -- split horizontally
+vim.keymap.set("n", "<C-h>", "<C-w>h") -- move to the left window
+vim.keymap.set("n", "<C-j>", "<C-w>j") -- move to the down window
+vim.keymap.set("n", "<C-k>", "<C-w>k") -- move to the up window
+vim.keymap.set("n", "<C-l>", "<C-w>l") -- move to the right window
+vim.keymap.set("n", "<C-Up>", "<cmd>resize -2<cr>") -- change window height
+vim.keymap.set("n", "<C-Down>", "<cmd>resize +2<cr>") -- change window height
+vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<cr>") -- change window width
+vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<cr>") -- change window width
+vim.keymap.set("n", "<A-j>", ":m .+1<CR>==") -- move line down
+vim.keymap.set("n", "<A-k>", ":m .-2<CR>==") -- move line up
+vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv") -- move selection down
+vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv") -- move selection up
+vim.keymap.set("v", ">", ">gv") -- indent left and reselect
+vim.keymap.set("v", "<", "<gv") -- indent left and reselect
