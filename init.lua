@@ -269,7 +269,11 @@ vim.pack.add({
   "https://github.com/rcarriga/nvim-notify",
   "https://github.com/nvim-lua/plenary.nvim",
   "https://github.com/NeogitOrg/neogit",
-  "https://github.com/nvim-treesitter/nvim-treesitter",
+  {
+    src = "https://github.com/nvim-treesitter/nvim-treesitter", 
+    branch = "main",
+    build = ":TSUpdate",
+  },
   "https://github.com/lewis6991/gitsigns.nvim",
 })
 
