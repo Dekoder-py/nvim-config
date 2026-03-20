@@ -27,13 +27,6 @@ vim.opt.smartcase = true -- case sensitive when mixed case search
 vim.opt.splitright = true -- split to the right
 vim.opt.splitbelow = true -- split down
 vim.opt.fillchars = { eob = " " } -- hide "~" on empty lines
-vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "Highlight when yanking text",
-	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
-	callback = function()
-		vim.highlight.on_yank()
-	end,
-}) -- highlight on yank
 vim.opt.wrap = false -- turn off wrapping
 vim.opt.swapfile = false -- turn off swapfile
 local undodir = vim.fn.expand("~/.vim/undodir")
@@ -231,3 +224,29 @@ vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv") -- move selection down
 vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv") -- move selection up
 vim.keymap.set("v", ">", ">gv") -- indent left and reselect
 vim.keymap.set("v", "<", "<gv") -- indent left and reselect
+
+-- ================================
+-- AUTOCMDS
+-- ================================
+
+local augroup = vim.api.nvim_create_augroup("UserConfig", { clear = true} )
+
+-- highlight on yank
+vim.api.nvim_create_autocmd("TextYankPost", {
+	desc = "Highlight when yanking text",
+	group = augroup,
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+}) 
+
+-- wrap and spellcheck on md files
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup,
+  pattern = { "markdown" },
+  callback = function()
+    vim.opt_local.wrap = true
+    vim.opt_local.linebreak = true
+    vim.opt_local.spell = true
+  end
+})
