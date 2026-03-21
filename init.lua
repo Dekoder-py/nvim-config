@@ -537,6 +537,13 @@ local function lsp_on_attach(ev)
 		vim.tbl_extend("force", opts, { desc = "Hover documentation" })
 	)
 
+	vim.keymap.set(
+		"n",
+		"<leader>t",
+		"<cmd>Lspsaga term_toggle<cr>",
+		opts, { desc = "Toggle Floating Terminal" }
+	)
+
 	vim.keymap.set("n", "<leader>fd", function()
 		require("fzf-lua").lsp_definitions({ jump_to_single_result = true })
 	end, vim.tbl_extend("force", opts, { desc = "Find definitions" }))
