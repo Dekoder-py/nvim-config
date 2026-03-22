@@ -407,6 +407,7 @@ require("lspsaga").setup({
 require("mason").setup()
 require("mason-lspconfig").setup({
 	ensure_installed = {
+    "astro_language_server",
 		"lua_ls",
 		"pyright",
 		"bashls",
