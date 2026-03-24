@@ -268,6 +268,7 @@ vim.pack.add({
 	"https://github.com/nvim-lua/plenary.nvim",
 	"https://github.com/NeogitOrg/neogit",
 	"https://github.com/folke/which-key.nvim",
+	"https://github.com/folke/todo-comments.nvim",
 	{
 		src = "https://github.com/nvim-treesitter/nvim-treesitter",
 		branch = "main",
@@ -291,6 +292,7 @@ packadd("nvim-notify")
 packadd("plenary.nvim")
 packadd("neogit")
 packadd("which-key.nvim")
+packadd("todo-comments.nvim")
 packadd("nvim-treesitter")
 packadd("gitsigns.nvim")
 -- LSP
@@ -391,6 +393,8 @@ vim.keymap.set("n", "<leader>?", function()
 	require("which-key").show({ global = false })
 end, { desc = "Buffer Local Keymaps (which-key)" })
 
+require("todo-comments").setup({})
+
 -- Gitsigns
 require("gitsigns").setup({})
 
@@ -407,7 +411,6 @@ require("lspsaga").setup({
 require("mason").setup()
 require("mason-lspconfig").setup({
 	ensure_installed = {
-    "astro_language_server",
 		"lua_ls",
 		"pyright",
 		"bashls",
@@ -422,6 +425,7 @@ require("mason-lspconfig").setup({
 require("mason-tool-installer").setup({
 	ensure_installed = {
 		"ast_grep",
+		"astro-language-server",
 		-- "luacheck", (commented because installed with system)
 		"stylua",
 		"flake8",
@@ -538,12 +542,7 @@ local function lsp_on_attach(ev)
 		vim.tbl_extend("force", opts, { desc = "Hover documentation" })
 	)
 
-	vim.keymap.set(
-		"n",
-		"<leader>t",
-		"<cmd>Lspsaga term_toggle<cr>",
-		opts, { desc = "Toggle Floating Terminal" }
-	)
+	vim.keymap.set("n", "<leader>t", "<cmd>Lspsaga term_toggle<cr>", opts, { desc = "Toggle Floating Terminal" })
 
 	vim.keymap.set("n", "<leader>fd", function()
 		require("fzf-lua").lsp_definitions({ jump_to_single_result = true })
